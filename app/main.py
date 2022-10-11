@@ -4,5 +4,5 @@ app = FastAPI()
 
 
 @app.get('/healthcheck', status_code=200)
-async def root():
+async def healthcheck():
     return {'message': 'ok'}
