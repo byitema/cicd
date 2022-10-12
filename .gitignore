@@ -2,4 +2,8 @@
 
 venv/
 
+.pytest_cache/
+
 test_main.http
+
+.env
