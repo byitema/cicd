@@ -12,9 +12,9 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-@app.get('/healthcheck', status_code=200)
+@app.get("/healthcheck", status_code=200)
 async def healthcheck():
-    return {'message': 'ok'}
+    return {"message": "ok"}
 
 
 @app.get("/items", response_model=List[schemas.Item])
