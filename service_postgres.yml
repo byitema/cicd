@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cicd-postgres-service
+spec:
+  clusterIP: 10.103.114.20
+  selector:
+    app: cicddb
+  type: NodePort
+  ports:
+    - port: 5432

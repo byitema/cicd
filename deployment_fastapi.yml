@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cicd
+  template:
+    metadata:
+      labels:
+        app: cicd
+    spec:
+      containers:
+      - name: cicd-fastapi-container
+        image: cicd-fastapi-image:latest
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        ports:
+        - containerPort: 80
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: cicd-secrets
+          - configMapRef:
+              name: cicd-config

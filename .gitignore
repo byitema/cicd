@@ -2,8 +2,14 @@
 
 venv/
 
+.mypy_cache/
 .pytest_cache/
 
 test_main.http
 
 .env
+
+steps.txt
+
+configmap.yml
+secrets.yml

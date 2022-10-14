@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cicddb
+  template:
+    metadata:
+      labels:
+        app: cicddb
+    spec:
+      containers:
+      - name: cicd-postgres-container
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        livenessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        image: postgres
+        ports:
+        - containerPort: 5432
+        envFrom:
+          - secretRef:
+              name: cicd-secrets
+          - configMapRef:
+              name: cicd-config
