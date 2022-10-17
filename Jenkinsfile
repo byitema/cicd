@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'apk add libpq-dev python3-dev'
+                sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
                 sh 'pip install -r requirements.txt'
             }
         }
