@@ -1,9 +1,21 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10.7-alpine'
+            args '-u root:root'
+        }
+    }
+
+    stage('Local check') {
+        steps {
+            minikube --version
+        }
+    }
 
     stages {
         stage('Setup') {
             steps {
+                sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
                 sh 'pip install -r requirements.txt'
             }
         }
