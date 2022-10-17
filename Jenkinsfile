@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'apt-get install libpq-dev python-dev'
+                sh 'apk add libpq-dev python-dev'
                 sh 'pip install -r requirements.txt'
             }
         }
