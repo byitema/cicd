@@ -7,14 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy(configs: "hpa.yml", kubeconfigId: "Kubernetes")
-                }
-            }
-        }
-
         stage('Setup') {
             steps {
                 sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
