@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh 'apk add --update --no-cache openssh'
                 sshagent(['laptop']) {
-                    sh 'ssh -o "StrictHostKeyChecking=no PasswordAuthentication=yes" user@host.docker.internal minikube --version'
+                    sh 'ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=yes user@host.docker.internal minikube --version'
                 }
             }
         }
