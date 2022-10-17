@@ -3,6 +3,10 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
+                sh 'sudo apt-get install libpq-dev python-dev'
+            }
+
+            steps {
                 sh 'pip install -r requirements.txt'
             }
         }
