@@ -10,6 +10,7 @@ pipeline {
 
         stage('Kubernetes') {
             steps {
+                sh 'apk add --update --no-cache openssh'
                 sshagent(['laptop']) {
                     sh 'ssh user@host.docker.internal minikube --version'
                 }
