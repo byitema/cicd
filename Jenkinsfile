@@ -6,17 +6,19 @@ pipeline {
         }
     }
 
-    stage('Local check') {
-        steps {
-            minikube --version
-        }
-    }
-
     stages {
         stage('Setup') {
             steps {
                 sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
                 sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('Kubernetes') {
+            steps {
+                sshagent(['laptop']) {
+                    sh 'ssh user@host.docker.internal minikube --version'
+                }
             }
         }
 
