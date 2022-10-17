@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh 'python -m pytest'
             }
-
         }
     }
 }
