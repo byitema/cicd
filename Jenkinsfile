@@ -2,24 +2,25 @@ pipeline {
     agent {
         docker {
             image 'python:3.10.7-alpine'
-            args '-u root:root'
+            args '--add-host host.docker.internal:host-gateway -u root:root'
         }
     }
 
     stages {
-        stage('Setup') {
-            steps {
-                sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
-                sh 'apk add --update --no-cache openssh'
-                sh 'pip install -r requirements.txt'
-            }
-        }
 
         stage('Kubernetes') {
             steps {
                 sshagent(['laptop']) {
                     sh 'ssh user@host.docker.internal minikube --version'
                 }
+            }
+        }
+
+        stage('Setup') {
+            steps {
+                sh 'apk add libpq-dev python3-dev postgresql-dev gcc musl-dev'
+                sh 'apk add --update --no-cache openssh'
+                sh 'pip install -r requirements.txt'
             }
         }
 
